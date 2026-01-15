@@ -16,22 +16,26 @@
 ### 1. Главная страница
 Приветствие и навигация. Авторизованный пользователь может перейти к колодам или начать повторение.
 
-![Главная страница](./screenshots/home.png)
+<img width="2550" height="1263" alt="image" src="https://github.com/user-attachments/assets/a61f33af-db90-49c2-8d1e-9228e8043182" />
+
 
 ### 2. Список колод
 Пользователь видит все свои колоды с кнопками редактирования и удаления.
 
-![Колоды](./screenshots/decks.png)
+<img width="2550" height="1263" alt="image" src="https://github.com/user-attachments/assets/d1149197-cabc-48ea-aecb-9ddcda53dd75" />
+
 
 ### 3. Повторение карточек ("Повторить сегодня")
 Интерфейс повторения: показывается вопрос, кнопка для раскрытия ответа, оценка 0–5.
 
-![Повторение](./screenshots/review.png)
+<img width="2550" height="1263" alt="image" src="https://github.com/user-attachments/assets/256102ab-4719-42e5-be4b-b2df80026231" />
+
 
 ### 4. Аналитика
 Графики количества повторений и средней оценки по дням, таблица "сложных карточек".
 
-![Аналитика](./screenshots/analytics.png)
+<img width="2550" height="1263" alt="image" src="https://github.com/user-attachments/assets/d8399c97-6504-4d33-959d-2c984e97b883" />
+
 
 ## Как запустить проект локально
 
