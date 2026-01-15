@@ -15,9 +15,13 @@
         <a class="nav-link" href="{% url 'deck_list' %}">Колоды</a>
         <a class="nav-link" href="{% url 'review_today' %}">Повторить</a>
         <a class="nav-link" href="{% url 'analytics' %}">Аналитика</a>
-        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+      {% csrf_token %}
+        <button type="submit" class="nav-link btn btn-link" style="text-decoration:none; color:white;">Выйти</button>
+        </form>
       {% else %}
         <a class="nav-link" href="{% url 'login' %}">Войти</a>
+        <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
       {% endif %}
     </div>
   </div>

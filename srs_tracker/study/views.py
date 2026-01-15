@@ -1,5 +1,7 @@
 from datetime import timedelta
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg, Count
 from django.db.models.functions import TruncDate
@@ -222,3 +224,12 @@ class AnalyticsView(LoginRequiredMixin, TemplateView):
                 "today": today,
             }
         )
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy("login")
+    
+    def form_valid(self, form):
+        user = form.save()
+        return super().form_valid(form)

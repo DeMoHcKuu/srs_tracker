@@ -1,10 +1,11 @@
 from django.urls import path
 
+from django.contrib.auth.views import LoginView, LogoutView
 from .views import (
     HomeView,
     DeckListView, DeckCreateView, DeckUpdateView, DeckDeleteView,
     CardListView, CardCreateView, CardUpdateView, CardDeleteView,
-    ReviewTodayView, AnalyticsView,
+    ReviewTodayView, AnalyticsView,RegisterView,
 )
 
 urlpatterns = [
@@ -22,4 +23,5 @@ urlpatterns = [
 
     path("review/today/", ReviewTodayView.as_view(), name="review_today"),
     path("analytics/", AnalyticsView.as_view(), name="analytics"),
+    path("accounts/register/", RegisterView.as_view(), name="register"),
 ]
