@@ -185,6 +185,18 @@ class AnalyticsView(LoginRequiredMixin, TemplateView):
 
         reviews_qs = Review.objects.filter(user=request.user, reviewed_at__date__gte=since)
 
+        if not reviews_qs.exists():
+            return self.render_to_response(
+                {
+                    "fig_count_html": None,
+                    "fig_avg_html": None,
+                    "hard_cards": [],
+                    "since": since,
+                    "today": today,
+                    "no_data": True,
+                }
+            )
+
         daily = (
             reviews_qs.annotate(day=TruncDate("reviewed_at"))
             .values("day")
@@ -196,16 +208,8 @@ class AnalyticsView(LoginRequiredMixin, TemplateView):
         daily_counts = [row["reviews_count"] for row in daily]
         daily_avgq = [float(row["avg_quality"]) if row["avg_quality"] is not None else 0.0 for row in daily]
 
-        fig_count = px.bar(
-            x=daily_days, y=daily_counts,
-            labels={"x": "День", "y": "Повторений"},
-            title="Повторения по дням (30 дней)",
-        )
-        fig_avg = px.line(
-            x=daily_days, y=daily_avgq, markers=True,
-            labels={"x": "День", "y": "Средняя оценка"},
-            title="Средняя оценка по дням (30 дней)",
-        )
+        fig_count = px.bar(x=daily_days, y=daily_counts, labels={"x": "День", "y": "Повторений"}, title="Повторения по дням (30 дней)")
+        fig_avg = px.line(x=daily_days, y=daily_avgq, markers=True, labels={"x": "День", "y": "Средняя оценка"}, title="Средняя оценка по дням (30 дней)")
 
         hard_cards = (
             Review.objects.filter(user=request.user)
@@ -222,8 +226,11 @@ class AnalyticsView(LoginRequiredMixin, TemplateView):
                 "hard_cards": hard_cards,
                 "since": since,
                 "today": today,
+                "no_data": False,
             }
         )
+
+
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
