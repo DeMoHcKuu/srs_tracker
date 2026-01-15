@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="h4 mb-3">Удалить карточку</h2>
+<div class="bg-white border rounded p-3">
+  <p>Точно удалить карточку?</p>
+  <div class="text-muted small mb-3">{{ object.front_text|truncatechars:200 }}</div>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Удалить</button>
+    <a class="btn btn-secondary" href="{% url 'card_list' deck_id=object.deck_id %}">Отмена</a>
+  </form>
+</div>
+{% endblock %}

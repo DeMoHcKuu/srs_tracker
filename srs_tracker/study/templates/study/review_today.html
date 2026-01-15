@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="h4 mb-3">Повторить сегодня</h2>
+
+{% if card %}
+  <div class="alert alert-secondary">К повторению сейчас: {{ due_count }}</div>
+
+  <div class="bg-white border rounded p-3 mb-3">
+    <div class="text-muted small mb-1">Колода: {{ card.deck.title }}</div>
+    <div class="fw-semibold mb-2">Вопрос</div>
+    <div class="mb-3">{{ card.front_text }}</div>
+
+    <button class="btn btn-outline-primary btn-sm" type="button" onclick="document.getElementById('answer').classList.toggle('d-none');">
+      Показать/скрыть ответ
+    </button>
+
+    <div id="answer" class="d-none mt-3">
+      <div class="fw-semibold mb-2">Ответ</div>
+      <div>{{ card.back_text }}</div>
+    </div>
+  </div>
+
+  <form method="post" class="bg-white border rounded p-3">
+    {% csrf_token %}
+    <input type="hidden" name="card_id" value="{{ card.id }}">
+    <div class="mb-2">Оцени качество ответа (0–5):</div>
+    <div class="d-flex flex-wrap gap-2">
+      {% for q in "012345" %}
+        <button class="btn btn-sm btn-success" type="submit" name="quality" value="{{ q }}">{{ q }}</button>
+      {% endfor %}
+    </div>
+  </form>
+{% else %}
+  <div class="alert alert-success">На сегодня повторений нет.</div>
+{% endif %}
+{% endblock %}

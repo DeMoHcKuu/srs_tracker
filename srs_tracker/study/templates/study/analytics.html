@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="h4 mb-3">Аналитика</h2>
+<div class="text-muted small mb-3">Период: {{ since }} — {{ today }}</div>
+
+<div class="bg-white border rounded p-3 mb-4">
+  {{ fig_count_html|safe }}
+</div>
+
+<div class="bg-white border rounded p-3 mb-4">
+  {{ fig_avg_html|safe }}
+</div>
+
+<div class="bg-white border rounded p-3">
+  <h3 class="h6">Самые сложные карточки (мин. 3 повторения)</h3>
+  {% if hard_cards %}
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Колода</th>
+          <th>Карточка (вопрос)</th>
+          <th>Avg quality</th>
+          <th>Повторений</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in hard_cards %}
+          <tr>
+            <td>{{ row.card__deck__title }}</td>
+            <td>{{ row.card__front_text|truncatechars:80 }}</td>
+            <td>{{ row.avg_quality|floatformat:2 }}</td>
+            <td>{{ row.reviews_count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="text-muted">Недостаточно данных для таблицы.</div>
+  {% endif %}
+</div>
+{% endblock %}

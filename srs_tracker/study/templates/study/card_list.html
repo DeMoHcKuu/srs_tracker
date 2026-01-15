@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="h4 mb-0">Карточки</h2>
+    <div class="text-muted small">Колода: {{ deck.title }}</div>
+  </div>
+  <div>
+    <a class="btn btn-sm btn-success" href="{% url 'card_create' deck_id=deck.id %}">+ Добавить карточку</a>
+  </div>
+</div>
+
+{% if cards %}
+  <div class="list-group">
+    {% for card in cards %}
+      <div class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <div class="me-3">
+            <div class="fw-semibold">Q:</div>
+            <div class="mb-2">{{ card.front_text|truncatechars:120 }}</div>
+            <div class="text-muted small">
+              След. повтор: {{ card.next_review_at }} · Интервал: {{ card.interval_days }} · EF: {{ card.ease_factor|floatformat:2 }} · Активна: {{ card.is_active }}
+            </div>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'card_edit' pk=card.id %}">Редактировать</a>
+            <a class="btn btn-sm btn-outline-danger" href="{% url 'card_delete' pk=card.id %}">Удалить</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-info">Карточек пока нет.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="h4 mb-3">Колода</h2>
+<form method="post" class="bg-white border rounded p-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-primary" type="submit">Сохранить</button>
+  <a class="btn btn-secondary" href="{% url 'deck_list' %}">Отмена</a>
+</form>
+{% endblock %}
